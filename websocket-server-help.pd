@@ -1,0 +1,23 @@
+#N canvas 134 115 381 300 10;
+#X obj 13 134 websocket-server 9001;
+#X obj 136 157 tgl 15 0 empty empty connected 19 7 0 10 -262144 -1
+-1 0 1;
+#N canvas 2 50 450 300 receive-message 0;
+#X obj 16 15 inlet;
+#X obj 16 38 list prepend set;
+#X obj 16 61 list trim;
+#X obj 16 84 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X restore 13 157 pd receive-message;
+#X text 14 7 send and receive messages to/from the browser using websockets.
+open index.html for example javascript code on the browser side \;
+websocket.send(["stuff" \, 12.5 \, "bang"]) \;;
+#X text 12 89 edit and send this message:;
+#X msg 13 180;
+#X msg 13 111 thing boom 42 bang 5.43923 hello;
+#X connect 0 0 2 0;
+#X connect 0 1 1 0;
+#X connect 2 0 5 0;
+#X connect 6 0 0 0;
