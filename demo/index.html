@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="yes" name="mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <script src="https://cdn.jsdelivr.net/npm/nexusui@2.0.5/dist/NexusUI.min.js" type="application/javascript"></script>
+  <title>boing</title>
+  <style>
+    * {
+      font-family: Arial, "Sans Serif";
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    a {
+      color: #22BBBB;
+    }
+
+    p {
+      margin: 0.25em;
+      padding: 0.25em;
+    }
+    
+    #patch {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+
+    #connection {
+      color: #22BBBB;
+      float: right;
+      position: absolute;
+      top: 0em;
+      right: 0em;
+      font-weight: bold;
+    }
+
+    #app {
+      margin-top: 3em;
+    }
+
+    [nexus-ui] {
+      margin: 1em auto;
+    }
+  </style>
+</head>
+<body>
+  <p id="patch"><a href="https://github.com/chr15m/pd-ws/blob/master/demo/boing.pd">demo/boing.pd</a></p>
+  <p id="connection">not connected</p>
+  <div id="app">
+    <div id="ticker"></div>
+    <div id="sequencer"></div>
+    <div id="cutoff"></div>
+  </div>
+  <script type="text/javascript">
+    var ticker = new Nexus.RadioButton("#ticker", {"numberOfButtons": 16, "size": [320, 20]});
+    var sequencer = new Nexus.Sequencer("#sequencer", {"size": [320, 20], "rows": 1, "columns": 16, "mode": "toggle"})
+    var cutoff = new Nexus.Dial('#cutoff', {"interaction": "vertical", "max": 127, "min": 0, "size": [75, 75]});
+    
+    $ = document.getElementById.bind(document);
+    
+    var ws = new WebSocket("ws://localhost:9001/");
+    
+    cutoff.on("change", function(v) {
+      ws.send(["cutoff", v]);
+    });
+
+    sequencer.on("change", function(v) {
+      console.log(sequencer.matrix.pattern[0]);
+      var table = sequencer.matrix.pattern[0].map(Number);
+      ws.send(["lookup", 0].concat(table));
+    });
+    
+    /* when a message is received from Pd */
+    ws.onmessage = function(message) {
+      // console.log("message", message, message.data);
+      //$("receiver").innerHTML += message.data + "\n";
+      //$("receiver").setAttribute("rows", $("receiver").innerHTML.split("\n").length - 1);
+      var message = message.data.split(" ");
+      console.log("message", message);
+      if (message[0] == "tick") {
+        ticker.select(parseInt(message[1]));
+      }
+    };
+    
+    ws.onopen = function() {
+      $("connection").innerHTML = "connected";
+    };
+    
+    ws.onclose = function() {
+      $("connection").innerHTML = "not connected";
+    };
+  </script>
+</body>
+</html>
