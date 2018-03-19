@@ -17,6 +17,10 @@ websocket.send(["stuff" \, 12.5 \, "bang"]) \;;
 #X text 12 89 edit and send this message:;
 #X msg 13 180;
 #X msg 13 111 thing boom 42 bang 5.43923 hello;
+#X text 11 241 based on the work of Nicolas Lhommet's Websocket-Server-in-a-Patch.
+;
+#X text 11 271 https://sourceforge.net/projects/websocketserverinapatch/
+;
 #X connect 0 0 2 0;
 #X connect 0 1 1 0;
 #X connect 2 0 5 0;

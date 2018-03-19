@@ -33,4 +33,4 @@ See the `websocket-server-help.pd` patch for more information.
 
 ### Acknowledgement
 
-Based on the excellent [pd-websocket server in a patch, by Nicolas Lhommet](https://sourceforge.net/projects/websocketserverinapatch/).
+Based on the excellent [Websocket-Server-in-a-Patch by Nicolas Lhommet](https://sourceforge.net/projects/websocketserverinapatch/).
