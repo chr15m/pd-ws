@@ -1,5 +1,9 @@
 Communicate between Pure Data & web browser over a websocket.
 
+![Screencast GIF of Pure Data talking to a web browser over a websocket.](./screencast.gif)
+
+Build browser based user interfaces for Pure Data DSP patches.
+
 ### tl;dr
 
  * Load up `websocket-server-help.pd` in Pd.
@@ -13,7 +17,7 @@ Some things you could do with this:
  * Control a headless Raspberry Pi running Pd with a web-app on another machine.
  * Control a libpd patch running on a tablet or phone with a web-app in the devices's browser.
 
-### Web apps ###
+### Use
 
 To build a web-app that talks to Pd instantiate the websocket-server in your patch:
 
@@ -27,6 +31,6 @@ Then connect from the browser:
 
 See the `websocket-server-help.pd` patch for more information.
 
-### Acknoledgement
+### Acknowledgement
 
 Based on the excellent [pd-websocket server in a patch, by Nicolas Lhommet](https://sourceforge.net/projects/websocketserverinapatch/).
