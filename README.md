@@ -31,6 +31,10 @@ Then connect from the browser:
 
 See the `websocket-server-help.pd` patch for more information.
 
+### Notes
+
+There is a known [bug](https://github.com/chr15m/pd-ws/issues/1) where refreshing the browser causes the connection to break. The current workaround is to bang the third inlet of the websocket before refreshing the browser.
+
 ### Acknowledgement
 
 Based on the excellent [Websocket-Server-in-a-Patch by Nicolas Lhommet](https://sourceforge.net/projects/websocketserverinapatch/).
